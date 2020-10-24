@@ -15,12 +15,12 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.categoryService.getall()
-    .then(response =>{
-      this.categoryList = response;
-    })
-    .catch(error =>{
-      console.error(error);
-    })
+    this.categoryList = this.categoryService.getall()
+    // .then(response =>{
+    //   this.categoryList = response;
+    // })
+    // .catch(error =>{
+    //   console.error(error);
+    // })
   }
 }
