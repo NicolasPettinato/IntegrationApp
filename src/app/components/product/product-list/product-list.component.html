@@ -1,0 +1,34 @@
+<main class="py-2 fadeIn">
+    <section id="listado" class="mb-5">
+        <div class="container">
+            <button class="btn btn-primary mb-4 ">New Product</button>
+            <table class="table table-striped ">
+                <thead class="thead-dark ">
+                    <tr>
+                        <th scope="col ">#</th>
+                        <th scope="col ">Name</th>
+                        <th scope="col ">Description</th>
+                        <th scope="col ">Price</th>
+                        <th scope="col ">Category</th>
+                        <th scope="col "></th>
+                        <th scope="col "></th>
+                        <th scope="col "></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prod of productList ">
+                        <th scope="row ">{{ prod.productId }}</th>
+                        <td>{{ prod.name}} </td>
+                        <td>{{ prod.description }}</td>
+                        <td>{{ prod.price }}</td>
+                        <td>{{ prod.productCategoryName }}</td>
+                        <td><img src="assets/view.png" [routerLink]="[ '/product/view/', prod.productId] "></td>
+                        <td><img src="assets/edit.png" [routerLink]="[ '/product/edit/', prod.productId] "></td>
+                        <td><img class="btn-click" src="assets/delete.png" (click)="delete(prod.productId)">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
