@@ -12,12 +12,44 @@ export class DashboardComponent implements OnInit {
 
   productList = Array<Product>();
   
+  @Input() filters: Array<ProductCategory>;
+
   constructor(private productService : ProductService) { }
 
   ngOnInit(): void {
+
+    console.log(this.filters);
+
     this.productService.getall()
     .then(response =>{
-      this.productList = response;
+        this.productList = response
+    })
+    .catch(error =>{
+      console.error();
+    })
+
+  }
+
+
+  ngOnChanges(): void {
+    
+    this.productList = []
+
+    this.productService.getall()
+    .then(response =>{
+      if (this.filters.length == 0){
+        this.productList = response
+      }
+      else{
+        let products: Array<Product> = response; 
+        for (let i = 0; i < this.filters.length; i++) {
+            for (let p = 0; p < products.length; p++) {
+              if (products[p].productCategoryId == this.filters[i].productCategoryId){
+                this.productList.push(products[p]);
+              }
+            }
+        }
+      }
     })
     .catch(error =>{
       console.error();

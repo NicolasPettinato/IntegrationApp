@@ -9,10 +9,10 @@
 <div class="">
     <div class="row">
         <div class="col-2">
-            <app-filter></app-filter>
+            <app-filter (selectedFilterEvent)="getFilters($event)"></app-filter>
         </div>
         <div class="col-10">
-            <app-dashboard></app-dashboard>
+            <app-dashboard [filters]="filters"></app-dashboard>
         </div>
     </div>
 </div>

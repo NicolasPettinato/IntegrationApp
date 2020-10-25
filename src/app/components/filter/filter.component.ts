@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductCategory } from 'src/app/models/category,model';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 
@@ -10,6 +10,9 @@ import { ProductCategoryService } from 'src/app/services/product-category.servic
 export class FilterComponent implements OnInit {
 
   categoryList: Array<ProductCategory>;
+  
+  @Output() 
+  selectedFilterEvent = new EventEmitter<Array<ProductCategory>>();
 
   constructor(private categoryService: ProductCategoryService) { }
 
@@ -38,5 +41,7 @@ export class FilterComponent implements OnInit {
         }
     }
     console.log(filterList);
+
+    this.selectedFilterEvent.emit(filterList);
   }
 }
