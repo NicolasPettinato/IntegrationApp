@@ -18,13 +18,13 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.categoryList = this.categoryService.getall()
-    // .then( response =>{
-    //   this.categoryList = response;
-    // })
-    // .catch( error => {
-    //   console.log(error);
-    // })
+    this.categoryService.getall()
+    .then( response =>{
+      this.categoryList = response;
+    })
+    .catch( error => {
+      console.log(error);
+    })
   }
 
   dofilter(){
@@ -40,7 +40,6 @@ export class FilterComponent implements OnInit {
             filterList.push(category);
         }
     }
-    console.log(filterList);
 
     this.selectedFilterEvent.emit(filterList);
   }

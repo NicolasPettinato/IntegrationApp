@@ -18,8 +18,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.filters);
-
     this.productService.getall()
     .then(response =>{
         this.productList = response

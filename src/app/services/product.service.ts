@@ -32,6 +32,15 @@ export class ProductService {
     return this.http.post(this.apiURL,product,httpOptions).toPromise();
   }
 
+  edit(product: Product): Promise<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type':'application/json'
+      })
+    };
+    return this.http.put(this.apiURL,product,httpOptions).toPromise();
+  }
+
   delete(id: number): Promise<any>{
     return this.http.delete(`${this.apiURL}/${id}`).toPromise();
   }

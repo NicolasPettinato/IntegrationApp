@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductAddComponent } from './components/product/product-add/product-add.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
-import { CategoryAddComponent } from './components/category/category-add/category-add.component';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { ProductComponent } from './components/product/product/product.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,28 +12,31 @@ import { FilterComponent } from './components/filter/filter.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductAddEditViewComponent } from './components/product/product-add-edit-view/product-add-edit-view.component';
+import { CategoryAddEditViewComponent } from './components/category/category-add-edit-view/category-add-edit-view.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductAddComponent,
+    ProductAddEditViewComponent,
     ProductListComponent,
-    CategoryAddComponent,
+    CategoryAddEditViewComponent,
     CategoryListComponent,
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
     ProductComponent,
     DashboardComponent,
-    FilterComponent
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
