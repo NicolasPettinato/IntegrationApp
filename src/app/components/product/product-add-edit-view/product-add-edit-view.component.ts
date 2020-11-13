@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CustomValidators } from 'src/app/common/custom-validators';
 import { ProductCategory } from 'src/app/models/category,model';
 import { Product } from 'src/app/models/product.model';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
@@ -20,10 +21,10 @@ export class ProductAddEditViewComponent implements OnInit {
   productId:number;
 
   productForm = new FormGroup({
-    name: new FormControl(""),
-    description: new FormControl(""),
-    price: new FormControl(""),
-    productCategoryId: new FormControl("")
+    name: new FormControl("", [ Validators.required, CustomValidators.lettersOnly()]),
+    description: new FormControl("", [ Validators.required, CustomValidators.lettersOnly()]),
+    price: new FormControl("", [ Validators.required, CustomValidators.numbersOnly]),
+    productCategoryId: new FormControl(""),
   })
 
   constructor(private productService: ProductService, private categoryService: ProductCategoryService, private route: ActivatedRoute) { }
@@ -68,6 +69,12 @@ export class ProductAddEditViewComponent implements OnInit {
 
   }
 
+  //validators
+  get name() { return this.productForm.get('name'); }
+  get description() { return this.productForm.get('description'); }
+  get price() { return this.productForm.get('price'); }
+  get productCategoryId() { return this.productForm.get('productCategoryId'); }
+  
   onSubmit(){
     let product = new Product();
     product.productId = this.productId

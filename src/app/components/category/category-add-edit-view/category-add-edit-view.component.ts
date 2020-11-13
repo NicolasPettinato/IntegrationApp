@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CustomValidators } from 'src/app/common/custom-validators';
 import { ProductCategory } from 'src/app/models/category,model';
 import { ProductCategoryService } from 'src/app/services/product-category.service';
 
@@ -17,14 +18,13 @@ export class CategoryAddEditViewComponent implements OnInit {
   categoryId:number;
 
   categoryForm = new FormGroup({
-    description: new FormControl("")
+    description: new FormControl("", [ Validators.required, CustomValidators.lettersOnly()])
   })
 
   constructor(private categoryService: ProductCategoryService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    //Mode Edit - view
     this.categoryId = Number(this.route.snapshot.paramMap.get('id'));
     this.mode = this.route.snapshot.url[1].path;
     this.mode = this.mode[0].toUpperCase() + this.mode.slice(1);
@@ -45,6 +45,8 @@ export class CategoryAddEditViewComponent implements OnInit {
       })
     }
   }
+
+  get description() { return this.categoryForm.get('description'); }
 
   onSubmit(){
     let category = new ProductCategory();

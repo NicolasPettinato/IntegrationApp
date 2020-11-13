@@ -1,12 +1,22 @@
 <main class="py-2 fadeIn fast">
     <section id="listado" class="mb-5">
         <div class="container">
-            <button class="btn btn-outline-primary mb-4" [routerLink]="['/category/add']">New Category</button>
+            <div class="row">
+                <div class="col-md-7">
+                    <button class="btn btn-outline-primary mb-4" [routerLink]="['/category/add']">New Category</button>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control mr-sm-2" placeholder="Search" #buscarTexto (keyup.enter)="getCategories(buscarTexto.value)">
+                </div>
+                <div class="col-md-0">
+                    <button class="btn btn-primary my-2 my-sm-0" type="button" (click)="getCategories(buscarTexto.value)">Search</button>
+                </div>
+            </div>
             <table class="table table-striped ">
                 <thead class="thead-dark ">
                     <tr>
                         <th scope="col ">#</th>
-                        <th scope="col ">Description</th>
+                        <th scope="col "> Description <i role="button" class="sortorder" (click)="sort()" id='description'></i></th>
                         <th></th>
                         <th></th>
                     </tr>

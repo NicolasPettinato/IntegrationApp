@@ -15,11 +15,42 @@ export class ProductListComponent implements OnInit {
 
   productList = Array<Product>();
   categoryList = Array<ProductCategory>();
+  ordenado = 0;
 
   constructor(private productService : ProductService, private categoryService: ProductCategoryService) { }
 
   ngOnInit(): void {
+    this.getProducts("");
+  }
 
+  delete(id:number){
+    this.productService.delete(id)
+    .then(response =>{
+      window.alert(`El producto ${id} se elimino correctamente`);
+      this.ngOnInit();
+    })
+    .catch(error =>{
+      console.error(error);
+    });
+  }
+
+  sort(){
+    
+      let name = document.getElementById("name")
+      if(this.ordenado == 0){
+        this.productList.sort((a,b) => (a.name > b.name ? 1 : -1));
+        name.className = "sortorder";
+          this.ordenado = 1;        
+      } else{
+        this.productList.sort((a,b) => (a.name < b.name ? 1 : -1));
+          name.className = "sortorder reverse";
+          this.ordenado = 0;
+      }
+  }
+
+  getProducts(termino:string){
+    let productListAux = Array<Product>();
+    
     //listado productos
     this.productService.getall()
     .then(response =>{
@@ -39,24 +70,21 @@ export class ProductListComponent implements OnInit {
                 }
             }
         }
+        for(let product of this.productList){
+          let nombre = product.name.toLowerCase();
+          
+          if(nombre.indexOf(termino.toLowerCase()) >= 0){
+            productListAux.push(product);
+          }
+        }  
+        this.productList = productListAux;
       })
+
     })
     .catch(error =>{
       console.log(error);
-    })
-
-  }
-
-  delete(id:number){
-    this.productService.delete(id)
-    .then(response =>{
-      window.alert(`El producto ${id} se elimino correctamente`);
-      this.ngOnInit();
-    })
-    .catch(error =>{
-      console.error(error);
-    });
+    })    
+    
   }
 }
-
 
