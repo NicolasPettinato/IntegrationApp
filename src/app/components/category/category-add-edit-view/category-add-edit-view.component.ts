@@ -1,3 +1,4 @@
+import { LowerCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +17,7 @@ export class CategoryAddEditViewComponent implements OnInit {
   message:string;
   category: ProductCategory;
   categoryId:number;
-
+  
   categoryForm = new FormGroup({
     description: new FormControl("", [ Validators.required, CustomValidators.lettersOnly()])
   })
@@ -28,7 +29,7 @@ export class CategoryAddEditViewComponent implements OnInit {
     this.categoryId = Number(this.route.snapshot.paramMap.get('id'));
     this.mode = this.route.snapshot.url[1].path;
     this.mode = this.mode[0].toUpperCase() + this.mode.slice(1);
-    
+   
     if (this.categoryId > 0)
     {
       this.categoryService.getById(this.categoryId)
@@ -57,6 +58,7 @@ export class CategoryAddEditViewComponent implements OnInit {
       this.categoryService.add(category)
         .then(response  => {
           this.message = "Category successfully added";
+          this.limpiacampos();
         })
         .catch(error =>{
           this.message = "An error has occurred!";
@@ -66,10 +68,19 @@ export class CategoryAddEditViewComponent implements OnInit {
       this.categoryService.edit(category)
         .then(response  => {
           this.message = "Category successfully edited";
+
+          this.limpiacampos();
         })
         .catch(error =>{
           this.message = "An error has occurred!";
         })
     }
+  }
+
+  limpiacampos(){
+    setTimeout(() => {
+      this.message = "";
+    }, 3000);
+
   }
 }

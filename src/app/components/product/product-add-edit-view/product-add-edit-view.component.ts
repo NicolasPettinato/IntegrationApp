@@ -81,7 +81,7 @@ export class ProductAddEditViewComponent implements OnInit {
     product.name = this.productForm.get('name').value;
     product.description = this.productForm.get('description').value;
     product.price = this.productForm.get('price').value;
-    product.productCategoryId = this.productForm.get('productCategoryId').value;
+    product.productCategoryId =  this.productForm.get('productCategoryId').value;
 
     if (this.mode == 'Add'){
       this.productService.add(product)

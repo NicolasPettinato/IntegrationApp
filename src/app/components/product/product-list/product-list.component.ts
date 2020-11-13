@@ -55,21 +55,42 @@ export class ProductListComponent implements OnInit {
     this.productService.getall()
     .then(response =>{
       
+      // let productos = Array<Product>();
       this.productList = response;
      
       //listado categorias
       this.categoryService.getall()
       .then(response =>{
         this.categoryList = response;
-      
+
+
+        //Merge clasico
         for (let i = 0; i < this.productList.length; i++) {
-            for (let e = 0; e < this.categoryList.length; e++) {
-              
-                if (this.productList[i].productCategoryId == this.categoryList[e].productCategoryId){
-                     this.productList[i].productCategoryName = this.categoryList[e].description;     
-                }
-            }
+          for (let e = 0; e < this.categoryList.length; e++) {
+            
+              if (this.productList[i].productCategoryId == this.categoryList[e].productCategoryId){
+                   this.productList[i].productCategoryName = this.categoryList[e].description;
+              }
+          }
         }
+
+        // //dejando solo los que existe la categoria
+        // let productos = Array<Product>();
+        // for (let i = 0; i < this.productList.length; i++) {
+        //     for (let e = 0; e < this.categoryList.length; e++) {
+              
+        //         if (this.productList[i].productCategoryId == this.categoryList[e].productCategoryId){
+        //              this.productList[i].productCategoryName = this.categoryList[e].description;
+        //              let producto = new Product();
+        //              producto = this.productList[i];
+        //              productos.push(producto);     
+        //         }
+        //     }
+        // }
+
+        // this.productList = [];
+        // this.productList = productos;
+
         for(let product of this.productList){
           let nombre = product.name.toLowerCase();
           
